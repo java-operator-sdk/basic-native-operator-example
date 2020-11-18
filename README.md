@@ -2,6 +2,14 @@
 
 This is an example of operator that could be compiled to native image which saves a lot of runtime memory and allows starting operator in few milliseconds.
 
+**This project is WIP and requires unreleased changes from Java operator SDK**
+
+To compile this project checkout first 
+[native-image-compatibility](https://github.com/java-operator-sdk/java-operator-sdk/tree/native-image-compatibility)
+branch from [Java-operator-sdk](https://github.com/java-operator-sdk/java-operator-sdk) and install it locally with
+```bash
+mvn -Pno-integration-tests install
+```
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
