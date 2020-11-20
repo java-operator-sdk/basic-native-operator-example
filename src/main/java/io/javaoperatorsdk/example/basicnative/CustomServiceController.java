@@ -16,9 +16,7 @@ import java.util.Collections;
 /**
  * A very simple sample controller that creates a service with a label.
  */
-@Controller(customResourceClass = CustomService.class,
-        customResourceDoneableClass = io.javaoperatorsdk.example.basicnative.CustomServiceDonable.class,
-        crdName = "customservices.example.javaoperatorsdk")
+@Controller(crdName = "customservices.example.javaoperatorsdk")
 public class CustomServiceController implements ResourceController<CustomService> {
 
     public static final String KIND = "CustomService";

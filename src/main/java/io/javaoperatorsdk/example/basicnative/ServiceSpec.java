@@ -1,5 +1,8 @@
 package io.javaoperatorsdk.example.basicnative;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class ServiceSpec {
 
     private String name;
