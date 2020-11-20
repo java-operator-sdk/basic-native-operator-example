@@ -27,6 +27,9 @@ class BasicOperatorIT {
 
     private static final Logger logger = LoggerFactory.getLogger(BasicOperatorIT.class);
 
+    public static final String CRD_YAML = "/k8s/crd.yaml";
+    public static final String TEST_OBJECT_YAML = "/k8s/test_object.yaml";
+
     KubernetesClient k8sClient = new DefaultKubernetesClient();
 
     @BeforeAll
@@ -34,7 +37,7 @@ class BasicOperatorIT {
         try (final KubernetesClient k8s = new DefaultKubernetesClient()) {
             CustomResourceDefinition crd = k8s.apiextensions().v1beta1()
                     .customResourceDefinitions()
-                    .load(BasicOperatorIT.class.getResourceAsStream("/k8s/crd.yaml"))
+                    .load(BasicOperatorIT.class.getResourceAsStream(CRD_YAML))
                     .get();
 
             k8s.apiextensions().v1beta1().customResourceDefinitions().create(crd);
@@ -47,7 +50,7 @@ class BasicOperatorIT {
         try (final KubernetesClient k8s = new DefaultKubernetesClient()) {
             CustomResourceDefinition crd = k8s.apiextensions().v1beta1()
                     .customResourceDefinitions()
-                    .load(BasicOperatorIT.class.getResourceAsStream("/k8s/crd.yaml"))
+                    .load(BasicOperatorIT.class.getResourceAsStream(CRD_YAML))
                     .get();
 
             k8s.apiextensions().v1beta1().customResourceDefinitions().delete(crd);
@@ -59,7 +62,7 @@ class BasicOperatorIT {
     void createResource() {
         CustomResourceDefinition crd = k8sClient.apiextensions().v1beta1()
                 .customResourceDefinitions()
-                .load(BasicOperatorIT.class.getResourceAsStream("/k8s/crd.yaml"))
+                .load(BasicOperatorIT.class.getResourceAsStream(CRD_YAML))
                 .get();
 
         MixedOperation<CustomService, CustomServiceList, CustomServiceDoneable, Resource<CustomService, CustomServiceDoneable>> customServiceClient = null;
@@ -67,7 +70,7 @@ class BasicOperatorIT {
 
         customServiceClient = k8sClient.customResources(context, CustomService.class, CustomServiceList.class, CustomServiceDoneable.class);
 
-        Resource<CustomService, CustomServiceDoneable> resource = customServiceClient.load(BasicOperatorIT.class.getResourceAsStream("/k8s/test_object.yaml"));
+        Resource<CustomService, CustomServiceDoneable> resource = customServiceClient.load(BasicOperatorIT.class.getResourceAsStream(TEST_OBJECT_YAML));
         customServiceClient.inNamespace("default").create(resource.get());
 
         CustomServiceList serviceList = customServiceClient.list();
